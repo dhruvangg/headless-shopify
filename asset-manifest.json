@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/headless-shopify/static/css/main.b911f48d.css",
+    "main.js": "/headless-shopify/static/js/main.5244e8ae.js",
+    "static/js/377.030c2378.chunk.js": "/headless-shopify/static/js/377.030c2378.chunk.js",
+    "service-worker.js": "/headless-shopify/service-worker.js",
+    "index.html": "/headless-shopify/index.html",
+    "main.b911f48d.css.map": "/headless-shopify/static/css/main.b911f48d.css.map",
+    "main.5244e8ae.js.map": "/headless-shopify/static/js/main.5244e8ae.js.map",
+    "377.030c2378.chunk.js.map": "/headless-shopify/static/js/377.030c2378.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b911f48d.css",
+    "static/js/main.5244e8ae.js"
+  ]
+}
