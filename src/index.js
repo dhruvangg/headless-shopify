@@ -1,15 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
 import './index.css';
 import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import * as serviceWorkerRegistration from 'serviceWorkerRegistration';
+import reportWebVitals from 'reportWebVitals';
+import { ThemeProvide } from 'Context/ThemeContext';
+import { StoreProvider } from 'Context/StoreContext';
 
-ReactDOM.render(
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <ThemeProvide>
+      <StoreProvider>
+        <ToastContainer />
+        <App />
+      </StoreProvider>
+    </ThemeProvide>
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
