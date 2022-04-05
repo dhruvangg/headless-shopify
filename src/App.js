@@ -8,8 +8,8 @@ export default function App() {
       <Header />
       <main className="min-h-screen bg-white dark:bg-gray-900 dark:text-white">
         <Routes>
-          <Route path="/headless-shopify" element={<Home />} />
-          <Route path="/headless-shopify/product" element={<Products />} />
+          <Route path="" element={<Home />} />
+          <Route path="/product" element={<Products />} />
         </Routes>
       </main>
     </BrowserRouter>

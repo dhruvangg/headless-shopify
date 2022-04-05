@@ -2,7 +2,7 @@
   "name": "headless-shopify",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dhruvangg.github.io/headless-shopify",
+  "homepage": "https://dhruvangg.github.io/headless-shopify/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^11.2.7",
