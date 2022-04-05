@@ -1,21 +1,17 @@
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { Routes, Route, HashRouter, } from "react-router-dom";
 import Header from 'Components/Header'
-import { Products } from 'Pages'
+import { Home, Products } from 'Pages'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Header />
       <main className="min-h-screen bg-white dark:bg-gray-900 dark:text-white">
         <Routes>
-          <Route path="" element={<Home />} />
           <Route path="/product" element={<Products />} />
+          <Route path="" element={<Home />} />
         </Routes>
       </main>
-    </BrowserRouter>
+    </HashRouter>
   )
-}
-
-const Home = () => {
-  return <h1>Home</h1>
 }

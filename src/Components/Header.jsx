@@ -14,9 +14,9 @@ export default function Header() {
         <header
             className="bg-white dark:bg-gray-900 border-b-2 border-indigo-500 p-2 sticky top-0 w-full flex flex-col justify-center gap-4 p-4">
             <div className="container mx-auto flex justify-between items-center">
-                <h2 className="text-xl font-bold text-indigo-700 dark:text-indigo-500"><Link to="/headless-shopify">Shopify</Link></h2>
+                <h2 className="text-xl font-bold text-indigo-700 dark:text-indigo-500"><Link to="">Shopify</Link></h2>
                 <ul>
-                    <li className="font-semibold"><Link to="/headless-shopify/product" className="dark:text-white">Product</Link></li>
+                    <li className="font-semibold"><Link to="/product" className="dark:text-white">Product</Link></li>
                 </ul>
                 <div className="flex">
                     <button className="mr-4" onClick={toggleTheme}>
