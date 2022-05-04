@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from 'react'
+import Client from 'shopify-buy';
 import { ThemeContext } from "Context/ThemeContext";
 import { StoreContext } from "Context/StoreContext";
 
@@ -10,13 +11,51 @@ export default function Header() {
     const toggleTheme = () => {
         setTheme(theme === "light" ? "dark" : "light")
     }
+
+    const client = Client.buildClient({
+        domain: 'champdecay.myshopify.com',
+        storefrontAccessToken: 'd04cfcf5c5bd7f6e80ae0a2a245d6967'
+    });
+
+    const handleCheckout = () => {
+        client.checkout.create().then((checkout) => {
+            localStorage.setItem("checkoutId", checkout.id)
+            const checkoutId = checkout.id
+            const lineItemsToAdd = cart.reduce((acc, item) => {
+                acc.push({
+                    variantId: item.variantId.id,
+                    quantity: item.quantity,
+                    customAttributes: [{
+                        key: "title",
+                        value: item.title
+                    }, {
+                        key: "price",
+                        value: item.price
+                    }, {
+                        key: "image",
+                        value: item.image
+                    }]
+                })
+                return acc
+            }, [])
+
+            client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
+                window.open = checkout.webUrl
+            }).catch((err) => {
+                console.log(err)
+            })
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     return (
         <header
             className="bg-white dark:bg-gray-900 border-b-2 border-indigo-500 p-2 sticky top-0 w-full flex flex-col justify-center gap-4 p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <h2 className="text-xl font-bold text-indigo-700 dark:text-indigo-500"><Link to="">Shopify</Link></h2>
-                <ul>
-                    <li className="font-semibold"><Link to="/product" className="dark:text-white">Product</Link></li>
+                <ul className="flex">
+                    <li className="mx-4 font-semibold"><Link to="/product" className="dark:text-white">Product</Link></li>
+                    <li className="mx-4 font-semibold"><Link to="/orders" className="dark:text-white">Orders</Link></li>
                 </ul>
                 <div className="flex">
                     <button className="mr-4" onClick={toggleTheme}>
@@ -47,20 +86,20 @@ export default function Header() {
                     <h3 className="font-bold">Cart</h3>
                     <ul className="flex flex-col">
                         {cart.map((item) => {
-                            return <li class="flex py-6">
-                                <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                    <img src={item.image} alt={item.title} class="h-full w-full object-cover object-center" />
+                            return <li className="flex py-6" key={item.id}>
+                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                    <img src={item.image} alt={item.title} className="h-full w-full object-cover object-center" />
                                 </div>
-                                <div class="ml-4 flex flex-1 flex-col">
+                                <div className="ml-4 flex flex-1 flex-col">
                                     <div>
-                                        <div class="flex justify-between text-base font-medium text-gray-900 dark:text-white">
+                                        <div className="flex justify-between text-base font-medium text-gray-900 dark:text-white">
                                             <h3><a href="#">{item.title}</a></h3>
-                                            <p class="ml-4">₹{parseFloat(item.price) * parseInt(item.quantity)}</p>
+                                            <p className="ml-4">₹{parseFloat(item.price) * parseInt(item.quantity)}</p>
                                         </div>
-                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Unit Price: ₹{parseFloat(item.price)}</p>
+                                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">Unit Price: ₹{parseFloat(item.price)}</p>
                                     </div>
-                                    <div class="flex flex-1 items-end justify-between text-sm">
-                                        <p class="text-gray-500 dark:text-gray-300 flex items-center">Qty
+                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                        <div className="text-gray-500 dark:text-gray-300 flex items-center">Qty
                                             <div className="flex px-4 items-center">
                                                 <button onClick={() => subQuantity(item.id)}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -74,15 +113,16 @@ export default function Header() {
                                                     </svg>
                                                 </button>
                                             </div>
-                                        </p>
-                                        <div class="flex">
-                                            <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" onClick={() => removeItem(item.id)}>Remove</button>
+                                        </div>
+                                        <div className="flex">
+                                            <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500" onClick={() => removeItem(item.id)}>Remove</button>
                                         </div>
                                     </div>
                                 </div>
                             </li>
                         })}
                     </ul>
+                    <button type="button" className="font-semibold bg-indigo-700 dark:bg-gray-800 py-2 px-2 text-gray-300 w-full rounded-md" onClick={handleCheckout}>Checkout</button>
                 </div> : <div className="flex flex-col justify-between">
                     <h3 className="font-bold">Cart</h3>
                     <p>Your cart is empty</p>

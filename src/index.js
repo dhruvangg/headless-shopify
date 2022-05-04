@@ -9,15 +9,18 @@ import { StoreProvider } from 'Context/StoreContext';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { AuthProvider } from 'Context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvide>
-      <StoreProvider>
-        <ToastContainer />
-        <App />
-      </StoreProvider>
+      <AuthProvider>
+        <StoreProvider>
+          <ToastContainer />
+          <App />
+        </StoreProvider>
+      </AuthProvider>
     </ThemeProvide>
   </React.StrictMode>
 );

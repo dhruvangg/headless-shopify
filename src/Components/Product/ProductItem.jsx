@@ -28,11 +28,14 @@ export function ProductItem({ product }) {
             setCart(newCart)
         }
 
-        toast("Added to cart!")
+        toast("Added to cart!", {
+            hideProgressBar: true,
+            position: "bottom-center",
+        })
     }
 
     return (
-        <div className="flex flex-col justify-between border-gray-100 dark:border-gray-800 cursor-pointer border border-gray-200" id={product.id}>
+        <div className="flex flex-col justify-between border-gray-100 dark:border-gray-800 cursor-pointer border border-gray-200 overflow-hidden rounded-lg shadow-md" id={product.id}>
             <p className="text-center">
                 <img style={{ maxHeight: "200px", margin: "0 auto" }} src={product.images[0].src} alt={product.title} />
             </p>
